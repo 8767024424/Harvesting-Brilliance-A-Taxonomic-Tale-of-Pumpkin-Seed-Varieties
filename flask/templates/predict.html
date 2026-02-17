@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction - SEED</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="predict-page">
+
+    <header>
+        <div class="logo">SEED</div>
+        <nav>
+            <a href="/">Home</a>
+            <a href="#">About</a>
+            <a href="/predict">Check</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="/">Home</a> /
+            <span>{% if prediction_text %}Predict{% else %}Check{% endif %}</span>
+        </div>
+
+        {% if prediction_text %}
+        <h2>Prediction</h2>
+        <div class="result-row">
+            <div class="result-card">
+                <h3>Result</h3>
+                <div class="result-text"><b>{{ prediction_text }}</b></div>
+                <a href="/predict"
+                    style="display:inline-block; margin-top:20px; color:var(--blue); text-decoration:none; font-size:14px;">←
+                    New Prediction</a>
+            </div>
+            <div class="result-image">
+                <img src="/static/images/result.jpg" alt="Pumpkin Seeds Result">
+            </div>
+        </div>
+        {% else %}
+        <h2>Enter the details:</h2>
+        <div class="form-container">
+            <form action="/predict" method="post">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Area:</label>
+                        <input type="number" name="Area" step="any" placeholder="e.g. 56234" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Perimeter:</label>
+                        <input type="number" name="Perimeter" step="any" placeholder="e.g. 942.3" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Major Axis Length:</label>
+                        <input type="number" name="Major_Axis_Length" step="any" placeholder="e.g. 410.2" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Solidity (range: 0 - 1):</label>
+                        <input type="number" name="Solidity" step="any" placeholder="0.99" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Extent (range: 0 - 1):</label>
+                        <input type="number" name="Extent" step="any" placeholder="0.75" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Roundness (range: 0 - 1):</label>
+                        <input type="number" name="Roundness" step="any" placeholder="0.88" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Aspect Ratio (range: 0 - 3):</label>
+                        <input type="number" name="Aspect_Ratio" step="any" placeholder="1.42" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Compactness (range: 0 - 1):</label>
+                        <input type="number" name="Compactness" step="any" placeholder="0.45" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit">Analyze Seed</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
